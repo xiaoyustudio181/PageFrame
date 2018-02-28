@@ -13,6 +13,7 @@ a{text-decoration:none; color:#000; cursor: pointer}
 .LineWrap{min-width:1200px; }
 .Line{width:1200px; margin-left:auto; margin-right:auto; }
 
+/*
 ul.Grid li,
 ul.List li{list-style:outside none none;}
-ul.Grid li{float: left;}
+ul.Grid li{float: left;}*/
