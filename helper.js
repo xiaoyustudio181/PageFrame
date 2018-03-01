@@ -1,7 +1,7 @@
-//== Helper version 180105.0952
+//== Helper version 180301.1444
 function findID(id) {return document.getElementById(id);}
 function findClass(className) {return document.getElementsByClassName(className);}
-function findTag(tag) {document.getElementsByTagName(tag);}
+function findTag(tag) {return document.getElementsByTagName(tag);}
 function newElement(tagName) {return document.createElement(tagName);}
 function newTextNode(text) {return document.createTextNode(text);}
 function readObj(obj) {//显示对象包含的所有信息
