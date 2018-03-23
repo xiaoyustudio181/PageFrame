@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>接口测试</title>
+    <script src="jquery-3.0.0.min.js"></script>
+    <script>
+        function Request(method,func,data,isFormData,isTestMode) {
+            this.TestMode=isTestMode;
+            this.isFormData=isFormData;//new FormData($("#form1")[0]);
+            this.ip='localhost';//192.168.10.176
+            this.baseUrl='http://'+this.ip+'/Relations/index.php/Admin/';
+            return this.request(method,func,data);
+        }
+        Request.prototype.request = function (method,func,data) {
+            var TestMode=this.TestMode;
+            var url=this.baseUrl+func+'.html';
+            var type=method?'POST':'GET';
+            if(TestMode){
+                console.warn(type+' 向 '+url+' 发送数据：');
+                console.log(data);
+            }
+            var options={};
+            //=====================================
+            var url={url:url};
+            var type={type:type};
+            var async={async:false};
+            var data={data:data};
+            var dataType={dataType:'json'};
+            //========上传文件时用new FormData()需要
+            var cache={cache:true};
+            var contentType={contentType:false};
+            var processData={processData:false};
+            //=====================================
+            var success={success:function (data) {
+                if(TestMode){
+                    console.warn(type+' 从 '+url+' 收到数据：');
+                    console.log(data);
+                }
+            }};
+            var error={error:function (xhr,status,message) {
+                console.log('异常消息: '+status+' '+message);
+            }};
+            //=====================================
+
+            if(this.isFormData){
+                options=Object.assign(url,type,async,data,dataType,success,error,
+                        cache,contentType,processData);
+            } else {
+                options = Object.assign(url,type,async,data,dataType,success,error);
+            }
+            return $.ajax(options).responseJSON.data;
+        };
+    </script>
+</head>
+<body>
+
+</body>
+<script>
+    new Request(1,'CopyRelations/ajax_copyrelations',{
+        projectid:2,
+        projectid2:1,
+        relationid:[1]
+    },0,1);
+</script>
+</html>
