@@ -22,8 +22,8 @@
             }
             var options={};
             //=====================================
-            var url={url:url};
-            var type={type:type};
+            url={url:url};
+            type={type:type};
             var async={async:false};
             var data={data:data};
             var dataType={dataType:'json'};
@@ -34,7 +34,7 @@
             //=====================================
             var success={success:function (data) {
                 if(TestMode){
-                    console.warn(type+' 从 '+url+' 收到数据：');
+                    console.warn(type.type+' 从 '+url.url+' 收到数据：');
                     console.log(data);
                 }
             }};
