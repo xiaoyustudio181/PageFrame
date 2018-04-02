@@ -8,7 +8,7 @@ function AjaxHelper(RequestMethod, func, data, callback, isAsync, isFormData) {
         throw new Error('接收请求的回调函数不正确。请检查AjaxHelper的参数。');
     }
     this.isAsync = isAsync;
-    this.isFormData = isFormData;
+    this.isFormData = isFormData;//formData=new FormData($('#form1')[0])
     this.ip = 'localhost';//192.168.10.176
     this.baseUrl = '/MyThinkPHP3.2.3Full/index.php/Admin/';
     //跨域访问的写法：'http://' + this.ip + '/MyThinkPHP3.2.3Full/index.php/Admin/'
