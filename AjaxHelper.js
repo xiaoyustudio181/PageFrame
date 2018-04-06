@@ -1,4 +1,4 @@
-//version 180403.1730
+//version 180406.1739
 function AjaxHelper(requestMethod, url, data, callback, isAsync, isFormData) {
     var test = requestMethod.toUpperCase();//值应为"get"或"post"
     if (test !== 'GET' && test !== 'POST') {
@@ -7,23 +7,18 @@ function AjaxHelper(requestMethod, url, data, callback, isAsync, isFormData) {
     if (typeof callback != 'function') {
         throw new Error('接收请求的回调函数不正确。请检查AjaxHelper的参数。');
     }
-    this.isAsync = isAsync;
-    this.isFormData = isFormData;//formData=new FormData($('#form1')[0])
-    this.ip = 'localhost';//192.168.10.176
-    this.baseUrl = '/MyThinkPHP3.2.3Full/index.php/Admin/';
+    var ip = 'localhost';//192.168.10.176
+    var baseUrl = '/MyThinkPHP3.2.3Full/index.php/Admin/';
     //跨域访问的写法：'http://' + this.ip + '/MyThinkPHP3.2.3Full/index.php/Admin/'
     //本域访问的写法：'/MyThinkPHP3.2.3Full/index.php/Admin/'
-    return this.request(url, data, callback);
-}
-AjaxHelper.prototype.request = function (url, data, callback) {
     var options = {};
     //=====================================
-    var url = {url: this.baseUrl + url + '.html'};//
-    var type = {type: this.RequestMethod};
-    var async = {async: this.isAsync};//同步异步
+    var url = {url: baseUrl + url + '.html'};//
+    var type = {type: requestMethod};
+    var async = {async: isAsync};//同步异步
     var data = {data: data};
     var dataType = {dataType: 'json'};
-    //========使用new FormData()提交需要（可提交上传文件）
+    //========使用FormData提交需要（可提交上传文件）formData=new FormData($('#form1')[0])
     var cache = {cache: true};
     var contentType = {contentType: false};
     var processData = {processData: false};
@@ -40,13 +35,13 @@ AjaxHelper.prototype.request = function (url, data, callback) {
         }
     };
     //=====================================
-    if (this.isFormData) {
+    if (isFormData) {
         options = Object.assign(url, type, async, data, dataType, success, error,
             cache, contentType, processData);
     } else {
         options = Object.assign(url, type, async, data, dataType, success, error);
     }
-    if (this.isAsync) {//异步
+    if (isAsync) {//异步
         $.ajax(options);
         return 0;
     } else {//同步
