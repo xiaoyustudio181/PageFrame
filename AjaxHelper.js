@@ -1,11 +1,17 @@
 //version 180406.1739
-function AjaxHelper(requestMethod, url, data, callback, isAsync, isFormData) {
+function AjaxHelper(requestMethod, url, data, callback, isFormData, isAsync) {
     var test = requestMethod.toUpperCase();//值应为"get"或"post"
     if (test !== 'GET' && test !== 'POST') {
         throw new Error('发送请求的方式不正确。请检查AjaxHelper的参数。');
     } else this.requestMethod = test;
     if (typeof callback != 'function') {
         throw new Error('接收请求的回调函数不正确。请检查AjaxHelper的参数。');
+    }
+    if (isFormData == undefined) {//默认值
+        isFormData = false;
+    }
+    if (isAsync == undefined) {//默认值
+        isAsync = true;
     }
     var ip = 'localhost';//192.168.10.176
     var baseUrl = '/MyThinkPHP3.2.3Full/index.php/Admin/';
