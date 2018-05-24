@@ -1,50 +1,80 @@
-//== Helper version 180301.1444
-function findID(id) {return document.getElementById(id);}
-function findClass(className) {return document.getElementsByClassName(className);}
-function findTag(tag) {return document.getElementsByTagName(tag);}
-function newElement(tagName) {return document.createElement(tagName);}
-function newTextNode(text) {return document.createTextNode(text);}
-function readObj(obj) {//显示对象包含的所有信息
-    var div=newElement('div');
-    div.style.fontSize='20px';
-    div.style.paddingLeft='8px';
-    document.body.appendChild(div);
-    div.appendChild(newElement('hr'));
-    div.appendChild(newTextNode(obj.toString()));
-    for(var key in obj){
-        if(typeof obj[key]=='function')
-            continue;
-        generateline(key);
-    }
-    for(key in obj){
-        if(typeof obj[key]!='function')
-            continue;
-        generateline(key);
-    }
-    function generateline(key) {
-        var p=newElement('p');
-        var text=newTextNode(key+' => '+obj[key]);
-        p.appendChild(text);
-        div.appendChild(p);
-    }
-    div.appendChild(newElement('hr'));
+/*
+* @describe 返回找到的DOM元素
+* @param id 元素的id
+* */
+function findID(id) {
+    return document.getElementById(id);
 }
-//=================================================绑定事件
-function bindClick(id,func) {findID(id).addEventListener('click',func);}
-//=================================================方法封装
-function random(min,max) {return Math.floor(Math.random()*(max-min+1)+min);}//两数间的随机数[min,max]
-function msg(Content,Type) {
-    switch (Type){
-        case 'a':alert(Content);break;
-        case 'l':console.log(Content);break;
-        case 'd':console.dir(Content);break;
-        case 'i':console.info(Content);break;
-        case 'w':console.warn(Content);break;
-        case 'e':console.error(Content);break;
-        default:console.log(Content);break;
+/*
+* @describe 返回找到的DOM元素
+* @param className 元素的类名
+* */
+function findClass(className) {
+    return document.getElementsByClassName(className);
+}
+/*
+* @describe 返回找到的DOM元素
+* @param tagName 元素的标签名
+* */
+function findTag(tagName) {
+    return document.getElementsByTagName(tagName);
+}
+/*
+* @describe 返回新的DOM元素
+* @param tagName 元素的标签名
+* */
+function newElement(tagName) {
+    return document.createElement(tagName);
+}
+/*
+* @describe 返回新的文本节点
+* @param text 文本节点的内容
+* */
+function newTextNode(text) {
+    return document.createTextNode(text);
+}
+/*
+* @describe 绑定点击事件到id
+* @param id 元素的id
+* @param func 绑定的方法
+* */
+function bindClick(id,func) {
+    findID(id).addEventListener('click',func);
+}
+/*
+* @describe 返回两数间的随机数 [min,max]
+* @param min 返回的最小值
+* @param max 返回的最大值
+* */
+function rand(min,max) {
+    return Math.floor(Math.random()*(max-min+1)+min);
+}
+/*
+* @describe 输出消息到控制台
+* @param content 输出的内容
+* @param mode 输出的模式
+* */
+function msg(content,mode) {
+    switch (mode){
+        case 'd':console.dir(content);break;
+        case 'i':console.info(content);break;
+        case 'w':console.warn(content);break;
+        case 'e':console.error(content);break;
+        default:console.log(content);break;
     }
 }
-function getNowTime(TypeID) {
+/*
+* @describe 输出消息到页面
+* @param content 输出的内容
+* */
+function write(content) {
+    document.write('<br/>'+content);
+}
+/*
+* @describe 获取当前时间的字符串
+* @param mode 输出的模式
+* */
+function getNowTime(mode) {
     var now=new Date();
     var year=now.getFullYear();
     var month=now.getMonth()+1;
@@ -72,48 +102,19 @@ function getNowTime(TypeID) {
         default:break;
     }
     
-    switch (TypeID){
+    switch (mode){
         case 1:return year+'年'+month+'月'+date+'日 '+day+' '+hours+':'+minutes+':'+seconds+'.'+milliseconds;
         default:return year+'-'+month+'-'+date+' '+hours+':'+minutes+':'+seconds;
     }
     
 }
-//=================================================方法新增
-Array.prototype.remove = function(element) {//数组移除指定元素
+/*
+* @describe 数组移除指定元素
+* @param element 要移除的元素
+* */
+Array.prototype.remove = function(element) {
     var index = this.indexOf(element);
-    if (index > -1)this.splice(index, 1);
-};
-//=================================================
-function Request(method,func,data) {
-    this.TestMode=0;
-    this.ip='localhost';
-    this.baseUrl='http://'+this.ip+'/Project/index.php/Admin/Ajax/';
-    return this.request(method,func,data);
-}
-Request.prototype.request = function (method,func,data) {
-    var TestMode=this.TestMode;
-    var url=this.baseUrl+func+'.html';
-    var type=method?'POST':'GET';
-    if(TestMode){
-        console.warn(type+' 向 '+url+' 发送数据：');
-        console.log(data);
+    if (index > -1){
+        this.splice(index, 1);
     }
-    var ajax=$.ajax({
-        url:url,
-        type:type,    //发送请求的方式
-        //async:true,//异步，只能在回调函数中获取值；
-        async:false,//同步，此时外面才能获取到回调函数中的值。
-        data:data,
-        dataType:'json',    //期待的返回数据的类型（注意字母大小写）
-        success:function(data){    //接收成功，参数是返回的数据
-            if(TestMode){
-                console.warn(type+' 从 '+url+' 收到数据：');
-                console.log(data);
-            }
-        },
-        error:function(xhr,status,message){
-            console.log('异常消息: '+status+' '+message);
-        }
-    });
-    return ajax.responseJSON;
 };
