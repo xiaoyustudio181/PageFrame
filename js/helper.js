@@ -90,7 +90,7 @@ function getNowTime(mode) {
     if(seconds.toString().length==1)seconds="0"+seconds;
     if(milliseconds.toString().length==1)milliseconds="00"+milliseconds;
     else if(milliseconds.toString().length==2)milliseconds="0"+milliseconds;
-    
+
     switch(day){
         case 1:day='星期一';break;
         case 2:day='星期二';break;
@@ -101,12 +101,12 @@ function getNowTime(mode) {
         case 0:day='星期天';break;
         default:break;
     }
-    
+
     switch (mode){
         case 1:return year+'年'+month+'月'+date+'日 '+day+' '+hours+':'+minutes+':'+seconds+'.'+milliseconds;
         default:return year+'-'+month+'-'+date+' '+hours+':'+minutes+':'+seconds;
     }
-    
+
 }
 /*
 * @describe 数组移除指定元素
