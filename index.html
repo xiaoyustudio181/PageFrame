@@ -2,23 +2,40 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Index</title>
+    <title>主页</title>
     <style>
-        @import "css/global.css";
+        @import "dist/css/bootstrap.min.css";
         @import "css/index.css";
     </style>
-    <script src="js/helper.js"></script>
     <script src="js/jquery-3.0.0.min.js"></script>
-    <script src="js/main.js"></script>
+    <script src="dist/js/bootstrap.min.js"></script>
+    <script src="js/vue.min.js"></script>
+    <script src="js/layer/layer.js"></script>
 </head>
 <body>
-<div id="TitleWrap" class="LineWrap">
-    <div id="Title" class="Line">
+<div class="container">
+    <div class="jumbotron">
+        <h1>主页</h1>
+        <p>This is home page.</p>
+    </div>
 
+    <div class="row">
+        <div class="col-sm-4">
+            <h3>第一列</h3>
+        </div>
+        <div class="col-sm-4">
+            <h3>第二列</h3>
+        </div>
+        <div class="col-sm-4">
+            <h3>第三列</h3>
+        </div>
     </div>
 </div>
 </body>
 <script>
-    
+  $(function () {
+    console.dir(Vue);
+    layer.msg('Loaded');
+  });
 </script>
 </html>
